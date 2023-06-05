@@ -16,6 +16,5 @@ class Webcam:
                 cv.imshow("Webcam", frame)
                 key = cv.waitKey(5)
                 if key == 27:
-                    break
-            
-            cv.destroyAllWindows()
+                    break 
+        cv.destroyAllWindows()
