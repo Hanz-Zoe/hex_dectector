@@ -1,15 +1,21 @@
 import cv2 as cv
 import numpy as np
 
-# lendo a imagem
-img = cv.imread('assets/baboon.jpg')
+# pegando o vídeo
+video_path = 'assets/video.mp4'
+video = cv.VideoCapture(video_path)
+
+# variáveis globais
+r = g = b = 0 
 
 # obtendo x e y quando houver duplo clique do mouse em um pixel específico
 def desenhar_cor_na_tela(evento, x, y, flags, param):
     if evento == cv.EVENT_LBUTTONDBLCLK:
+        global r, g, b
+
         # atribuindo o rgb a variáveis
-        cor_pixel = img[y, x]
-        b, g, r = img[y,x]
+        cor_pixel = frame[y, x]
+        b, g, r = frame[y,x]
         
         # definindo tamanho e cor da imagem na nova janela
         janela_cor_pixel = np.zeros((50, 50, 3), np.uint8)
@@ -27,18 +33,35 @@ def converte_rgb_para_hexadecimal(r, g, b):
 
 
 # criando janela para exibição
-cv.namedWindow('imagem')
+cv.namedWindow('video')
 
 # cofigurando função de retorno quando houver clique do mouse
-cv.setMouseCallback('imagem', desenhar_cor_na_tela)
+cv.setMouseCallback('video', desenhar_cor_na_tela)
        
-while True:
-    # mostrando o a imagem na janela        
-    cv.imshow('imagem', img)
+while video.isOpened():
+    sucesso, frame = video.read()
+
+    if not sucesso:
+        break
+
+    # mostrando video
+    cv.imshow('video', frame)
+
+    # cofigurando função de retorno quando houver clique do mouse
+    cv.setMouseCallback('video', desenhar_cor_na_tela)
+
+    if cv.waitKey(10) & 0xFF == ord(' '):
+        # pausando o vídeo
+        while True:
+            key = cv.waitKey(1)
+            if cv.waitKey(1) & 0xFF == ord(' '):
+                # resumindo o vídeo
+                break
 
     # parando o loop ao apertar a tecla 'esc'    
-    if cv.waitKey(20) & 0xFF == 27:
+    if cv.waitKey(10) & 0xFF == 27:
         break
 
 # liberando os recursos
+video.release
 cv.destroyAllWindows()
