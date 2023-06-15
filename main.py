@@ -15,26 +15,31 @@ def desenhar_cor_na_tela(evento, x, y, flags, param):
         b, g, r = img[y,x]
         r, g, b = int(r), int(g), int(b)
 
+# criando janela para exibição
 cv.namedWindow('imagem')
+
+# cofigurando função de retorno quando houver clique do mouse
 cv.setMouseCallback('imagem', desenhar_cor_na_tela)
        
-while 1:        
+while True:
+    # mostrando o a imagem na janela        
     cv.imshow('imagem', img)
 
     if clicado:
-        # cria o retângulo com a cor clicada pelo mouse
+        # criando o retângulo com a cor clicada pelo mouse
         cv.rectangle(img,(20,20), (750,60), (b,g,r), -1)
 
-        # retorna o código hexadecimal
+        # retornando o código hexadecimal
         texto = 'cor em hexadecimal' 
             
-        # coloca o texto na tela
+        # colocando o texto na tela
         cv.putText(img, texto, (50,50), 2, 0.8, (255,255,255), 2, cv.LINE_AA)
 
         clicado = False
 
-    # para o loop ao apertar a tecla 'esc'    
+    # parando o loop ao apertar a tecla 'esc'    
     if cv.waitKey(20) & 0xFF == 27:
         break
 
+# liberando os recursos
 cv.destroyAllWindows()
