@@ -18,10 +18,10 @@ def desenhar_cor_na_tela(evento, x, y, flags, param):
 cv.namedWindow('imagem')
 cv.setMouseCallback('imagem', desenhar_cor_na_tela)
        
-while(1):        
+while 1:        
     cv.imshow('imagem', img)
 
-    if (clicado):
+    if clicado:
         # cria o retângulo com a cor clicada pelo mouse
         cv.rectangle(img,(20,20), (750,60), (b,g,r), -1)
 
