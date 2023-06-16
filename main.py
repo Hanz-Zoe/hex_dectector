@@ -29,7 +29,7 @@ def desenhar_cor_na_tela(evento, x, y, flags, param):
 
 # função a ser desenvolvida por vinicius
 def converte_rgb_para_hexadecimal(r, g, b):
-    return 'hexadecimal'
+     return '#{:02x}{:02x}{:02x}'.format(r,g,b)
 
 
 # criando janela para exibição
